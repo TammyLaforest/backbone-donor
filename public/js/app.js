@@ -1,6 +1,7 @@
 // 'use strict'
 let app = {}
 
+
 // Models
 let today = new Date()
 let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
@@ -30,8 +31,10 @@ app.Donation = Backbone.Model.extend({
 // Collections
 app.DonorList = Backbone.Collection.extend({
     model: app.Donor,
-    localStorage: new Store('backbone-donor'),
+    // localStorage: new Store('backbone-donor'),
+    // url: 'http://localhost:3000/api/donors'
     url: 'http://localhost:3000/api/donors'
+
 })
 
 // instance of Collection
@@ -183,3 +186,24 @@ $(document).ready(function () {
         });
     });
 })
+
+// Router
+var DonorRouter = Backbone.Router.extend({
+    routes: {
+        "donor/:id": "viewDonor",
+        "donor/:id/edit": "editDonor"
+    },
+
+    viewDonor: function (id) {
+        console.log("View donor requested.")
+        this.navigate("donor/" + id + '/edit')
+    },
+
+    editDonor: function (id) {
+        console.log("Edit donor opened.");
+    }
+});
+
+var myDonorRouter = new DonorRouter();
+
+Backbone.history.start();
