@@ -1,0 +1,35 @@
+{
+	"name": "backbone-donor",
+	"version": "1.0.0",
+	"description": "track donations and donors",
+	"main": "index.js",
+	"scripts": {
+		"start": "env-cmd -f ./.env nodemon -r esm index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/TammyLaforest/backbone-donor.git"
+	},
+	"keywords": [
+		"backbone",
+		"donor"
+	],
+	"author": "Tammy Laforest",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/TammyLaforest/backbone-donor/issues"
+	},
+	"homepage": "https://github.com/TammyLaforest/backbone-donor#readme",
+	"dependencies": {
+		"body-parser": "^1.19.0",
+		"esm": "^3.2.25",
+		"express": "^4.17.1",
+		"mongoose": "^5.6.8",
+		"validator": "^11.1.0"
+	},
+	"devDependencies": {
+		"env-cmd": "^9.0.3",
+		"nodemon": "^1.19.1"
+	},
+	"proxy": "http://localhost:3001"
+}

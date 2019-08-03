@@ -1,15 +1,12 @@
-
-'use strict'
+// 'use strict'
 let app = {}
 
 // Models
-
 let today = new Date()
 let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
 
 Backbone.Model.prototype.idAttribute = '_id'
 
-// const Donor = Backbone.Model.extend({
 app.Donor = Backbone.Model.extend({
     defaults: {
         firstName: '',
@@ -19,7 +16,6 @@ app.Donor = Backbone.Model.extend({
     }
 });
 
-// const Donation = Backbone.Model.extend({
 app.Donation = Backbone.Model.extend({
     defaults: {
         donor: "",
@@ -32,7 +28,6 @@ app.Donation = Backbone.Model.extend({
 });
 
 // Collections
-// const DonorList = Backbone.Collection.extend({
 app.DonorList = Backbone.Collection.extend({
     model: app.Donor,
     localStorage: new Store('backbone-donor'),
@@ -53,8 +48,6 @@ app.DonorView = Backbone.View.extend({
         'dblclick .firstName ': 'edit',
         'dblclick .lastName ': 'edit',
         'dblclick .email': 'edit',
-        // 'keypress .edit': 'updateOnEnter',
-        // 'blur  edit': 'close',
         'click .edit-donor': 'edit',
         'click .update-donor': 'update',
         'click .cancel': 'cancel',
@@ -113,11 +106,6 @@ app.DonorView = Backbone.View.extend({
         }
         this.$el.removeClass('editing')
     },
-    // updateOnEnter: function (e) {
-    //     if (e.which == 13) {
-    //         this.close()
-    //     }
-    // },
     delete: function () {
         this.model.destroy({
             success: function (response) {
@@ -132,11 +120,6 @@ app.DonorView = Backbone.View.extend({
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
-    // render: function () {
-    //     this.$el.html(this.template(this.model.toJSON()))
-    //     this.input = this.$('.edit')
-    //     return this
-    // },
 })
 
 
@@ -148,8 +131,6 @@ app.DonorsView = Backbone.View.extend({
     template: _.template($('#donor-list-template').html()),
     initialize: function () {
         this.model.on('add', this.render, this);
-        // app.donorList.on('add', this.render, this);
-
         this.model.on('change', this.render, this);
         this.model.on('remove', this.render, this);
 
@@ -166,7 +147,7 @@ app.DonorsView = Backbone.View.extend({
         });
     },
     render: function () {
-        var self = this;
+        let self = this;
         this.$el.html('');
         _.each(this.model.toArray(), function (donor) {
             self.$el.append((new app.DonorView({ model: donor })).render().$el);
@@ -202,25 +183,3 @@ $(document).ready(function () {
         });
     });
 })
-
-
-// Routers
-// app.Router = Backbone.Router.extend({
-//     routes: {
-//         '*filter': 'setFilter'
-//     },
-
-//     setFilter: function (params) {
-//         if (params != null) {
-//             console.log('app.router.params = ' + params)
-//             window.filter = params.trim() || ''
-//             app.donorList.trigger('reset')
-//         }
-//     }
-// })
-
-// Initializer
-
-// app.router = new app.Router()
-// Backbone.history.start()
-// app.donorsView = new app.DonorsView()
