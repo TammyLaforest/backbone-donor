@@ -1,5 +1,5 @@
 {
-	"name": "backbone-donor",
+	"name": "easy-donor",
 	"version": "1.0.0",
 	"description": "track donations and donors",
 	"main": "index.js",
@@ -17,9 +17,9 @@
 	"author": "Tammy Laforest",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/TammyLaforest/backbone-donor/issues"
+		"url": "https://github.com/TammyLaforest/easy-donor/issues"
 	},
-	"homepage": "https://github.com/TammyLaforest/backbone-donor#readme",
+	"homepage": "https://github.com/TammyLaforest/easy-donor#readme",
 	"dependencies": {
 		"body-parser": "^1.19.0",
 		"esm": "^3.2.25",

@@ -33,3 +33,9 @@ const DonorSchema = new Schema({
 const Donor = mongoose.model('Donor', DonorSchema)
 
 export default Donor
+
+let donor = new Donor({
+    firstName: 'John',
+    lastName: "Smith",
+    email: "johnsmith@example.com"
+})

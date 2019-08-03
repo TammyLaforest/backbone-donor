@@ -1,7 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
+// import bodyParser from 'body-parser'
 import router from './router'
+// import Donor from './models'
 
 const port = 3000
 
@@ -28,3 +29,11 @@ app.use(router)
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
 })
+
+// let donor = new Donor({
+//     firstName: 'John',
+//     lastName: "Smith",
+//     email: "johnsmith@example.com"
+// })
+
+// donor.save()
