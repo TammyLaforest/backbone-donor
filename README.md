@@ -1,4 +1,4 @@
-# backbone-donor
+# easy-donor
 
 ## Donation tracking software
 
