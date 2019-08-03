@@ -17,7 +17,6 @@ const DonorSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
         validate: value => {
             if (!validator.isEmail(value)) {
                 throw new Error({ error: 'Invalid Email Address' })
@@ -30,6 +29,31 @@ const DonorSchema = new Schema({
     },
 });
 
-const Donor = mongoose.model('Donor', DonorSchema)
+const DonationSchema = new Schema({
+    owner: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    amount: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    dateRecorded: {
+        type: Date,
+        required: true,
+    },
+    dateDonated: {
+        type: Date,
+        required: true,
+    },
+    purpose: {
+        type: String,
+        required: true
+    }
+});
 
-export default Donor
+export const Donor = mongoose.model('Donor', DonorSchema)
+
+export const Donation = mongoose.model('Donation', DonationSchema)

@@ -6,9 +6,6 @@ Backbone.Model.prototype.idAttribute = '_id'
 let today = new Date()
 let date = `${today.getFullYear()} - ${(today.getMonth() + 1)} - ${today.getDate()}`
 
-
-Backbone.Model.prototype.idAttribute = '_id'
-
 app.Donor = Backbone.Model.extend({
     defaults: {
         firstName: '',
@@ -20,18 +17,16 @@ app.Donor = Backbone.Model.extend({
 
 app.Donation = Backbone.Model.extend({
     defaults: {
-        donor: "",
+        owner: "",
         amount: 0,
         dateRecorded: date,
         dateDonated: date,
         purpose: 'any',
-        account: 'general'
     }
 })
 
 // Collections
 app.DonorList = Backbone.Collection.extend({
-    // model: app.Donor,
     url: 'http://localhost:3000/api/donors'
 
 })
@@ -47,17 +42,16 @@ app.DonorView = Backbone.View.extend({
     tagName: 'tr',
     template: _.template($('#donor-list-template').html()),
     events: {
-        // 'dblclick .firstName ': 'edit',
-        // 'dblclick .lastName ': 'edit',
-        // 'dblclick .email': 'edit',
         'click .edit-donor': 'edit',
         'click .update-donor': 'update',
         'click .cancel': 'cancel',
         'click .delete-donor': 'delete'
     },
     edit: function () {
+
         $('.edit-donor').hide()
         $('.delete-donor').hide()
+
         this.$('.update-donor').show()
         this.$('.cancel').show()
 
@@ -81,20 +75,20 @@ app.DonorView = Backbone.View.extend({
             donorsView.render()
         } else {
             console.log("hear ye")
-
-            this.model.set('firstName', newName)
-            this.model.set('lastName', this.$('.lastName-update').val().trim())
-            this.model.set('email', this.$('.email-update').val().trim())
-
-            this.model.save(null, {
-                success: function (response) {
-                    console.log(`Successfully UPDATED donor with _id:${response.toJSON()._id}`)
-                },
-                error: function (err) {
-                    console.log('Failed to update donor!')
-                }
-            })
         }
+        this.model.set('firstName', newName)
+        this.model.set('lastName', this.$('.lastName-update').val().trim())
+        this.model.set('email', this.$('.email-update').val().trim())
+
+        this.model.save(null, {
+            success: function (response) {
+                console.log(`Successfully UPDATED donor with _id:${response.toJSON()._id}`)
+            },
+            error: function (err) {
+                console.log('Failed to update donor!')
+            }
+        })
+
     },
     cancel: function () {
         donorsView.render()
@@ -115,13 +109,9 @@ app.DonorView = Backbone.View.extend({
     }
 })
 
-
-// AppView
-
 app.DonorsView = Backbone.View.extend({
     el: '#main',
     model: app.donorList,
-    template: _.template($('#donor-list-template').html()),
     initialize: function () {
         this.model.on('add', this.render, this)
         this.model.on('change', this.render, this)
@@ -134,18 +124,6 @@ app.DonorsView = Backbone.View.extend({
             },
             error: function () {
                 console.log("Failed to GET donors")
-            }
-        })
-
-        // app.donorList.fetch()
-        this.model.fetch({
-            success: function (response) {
-                _.each(response.toJSON(), function (item) {
-                    console.log(`Successfully GOT Donor with _id:${item._id}`)
-                })
-            },
-            error: function () {
-                console.log('Failed to get donors!')
             }
         })
     },
@@ -164,12 +142,10 @@ let donorsView = new app.DonorsView()
 $(document).ready(function () {
     $('.add-donor').on('click', function () {
         let donor = new app.Donor({
-            firstName: $('.firstName-input').val(),
-            lastName: $('.lastName-input').val(),
-            email: $('.email-input').val(),
-
+            firstName: $('.firstName-input').val().trim(),
+            lastName: $('.lastName-input').val().trim(),
+            email: $('.email-input').val().trim(),
         })
-
         app.donorList.add(donor)
 
         // Clear inputs
