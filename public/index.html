@@ -14,6 +14,10 @@
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
+		<!-- <h1 id="topofpage">
+			Looking At Underscore.js Templates
+		</h1> -->
+		<div id="putsomethinghere"></div>
 		<div class="container">
 			<div class="row">
 				<h1>Easy Donor</h1>
@@ -44,8 +48,112 @@
 						</tr>
 					</thead>
 
+					<!-- List of donors -->
 					<tbody class="donor-list" id="main"></tbody>
 				</table>
+			</div>
+
+			<!-- Code for modal -->
+			<div
+				class="modal fade"
+				id="exampleModalLong"
+				tabindex="-1"
+				role="dialog"
+				aria-labelledby="donormodal"
+				aria-hidden="true"
+			>
+				<div
+					class="modal-dialog modal-dialog-centered modal-lg"
+					role="document"
+				>
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title"></h5>
+							<button
+								type="button"
+								class="close"
+								data-dismiss="modal"
+								aria-label="Close"
+							>
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h3>Account Information</h3>
+							<table class="table">
+								<tbody
+									class="modal-contact"
+									id="donor-contact"
+								></tbody>
+
+								<td class="actions">
+									<button
+										class="btn btn-warning edit-donor"
+										data-dismiss="modal"
+									>
+										Edit
+									</button>
+									<button
+										class="btn btn-danger delete-donor"
+										data-dismiss="modal"
+									>
+										Delete
+									</button>
+								</td>
+							</table>
+							<h3>Donations</h3>
+							<table class="table" id="donationapp">
+								<thead>
+									<tr>
+										<th scope="col">Donation Date</th>
+										<th scope="col">Purpose</th>
+										<th scope="col">Donation Amount</th>
+										<th scope="col">Action</th>
+									</tr>
+									<tr>
+										<td>
+											<input
+												class="form-control donationDate-input"
+											/>
+										</td>
+										<td>
+											<input
+												class="form-control purpose-input"
+											/>
+										</td>
+										<td>
+											<input
+												class="form-control amount-input"
+											/>
+										</td>
+										<td>
+											<button
+												class="btn btn-primary add-donation"
+											>
+												Submit
+											</button>
+										</td>
+									</tr>
+								</thead>
+
+								<tbody
+									class="donation-list"
+									id="donations"
+								></tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-dismiss="modal"
+							>
+								Close
+							</button>
+						</div>
+					</div>
+				</div>
+				<!-- End modal -->
 			</div>
 		</div>
 
@@ -85,95 +193,77 @@
 			type="text/javascript"
 		></script>
 
+		<!-- Templates -->
+
 		<script type="text/template" id="donor-list-template">
+			<td class="firstName">
+				<%= firstName %>
+			</td>
+			<td class="lastName">
+				<%= lastName %>
+			</td>
+			<td class="email">
+				<%= email %>
+			</td>
+
 			<td class="modal-button">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-								Open Donor</button>
-			<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-			aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLongTitle"><%= firstName %> <%= lastName %></h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span></button></div>
-						<div class="modal-body">
-												<h3>Donations</h3>
-			<table class="table">
-												<td class="firstName">
-								<%= firstName %>
-							</td>
-							<td class="lastName">
-								<%= lastName %>
-							</td>
-							<td class="email">
-								<%= email %>
-							</td>
-						</table>
-							<!-- <td>
-								<button class="btn btn-warning edit-donor">Edit</button>
-								<button class="btn btn-danger delete-donor">Delete</button>
-								<button class="btn btn-success update-donor" style="display:none">Update</button>
-								<button class="btn btn-danger cancel" style="display:none">Cancel</button>
-							</td>
-
-												<table class="table" id="donationapp">
-													<thead>
-														<tr>
-															<th scope="col">First</th>
-															<th scope="col">Last</th>
-															<th scope="col">Email</th>
-															<th scope="col">Action</th>
-														</tr>
-														<tr>
-															<td>
-																<input class="form-control firstName-input" />
-															</td>
-															<td>
-																<input class="form-control lastName-input" />
-															</td>
-															<td>
-																<input class="form-control email-input" />
-															</td>
-															<td>
-																<button class="btn btn-primary add-donor">
-																	Add
-																</button>
-															</td>
-														</tr>
-													</thead>
-
-													<tbody class="donation-list" id="donations"></tbody>
-												</table>
-											</div>
-										</div> -->
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary">Save changes</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-
-						</td>
-						<td class="firstName really">
-							<%= firstName %>
-						</td>
-						<td class="lastName">
-							<%= lastName %>
-						</td>
-						<td class="email">
-							<%= email %>
-						</td>
-						<td>
-							<button class="btn btn-warning edit-donor">Edit</button>
-							<button class="btn btn-danger delete-donor">Delete</button>
-							<button class="btn btn-success update-donor" style="display:none">Update</button>
-							<button class="btn btn-danger cancel" style="display:none">Cancel</button>
-						</td>
+				<button class="btn btn-success update-donor" style="display:none">
+					Update
+				</button>
+				<button class="btn btn-danger cancel" style="display:none">Cancel</button>
+				<button
+					type="button"
+					class="btn btn-primary toggle-donor"
+					data-toggle="modal"
+					data-target="#exampleModalLong"
+					data-id=
+				>
+					Open Donor
+				</button>
+			</td>
 		</script>
 
+		<script
+			src="js/templates/donor-contact-template.js"
+			type="text/template"
+			id="donor-contact-template"
+		></script>
+
+		<script
+			src="js/templates/donor-donations-template.js"
+			type="text/template"
+			id="donor-donations-template"
+		></script>
+		<script type="text/template" id="second-template">
+			<h1>
+				title
+				<%- title %>
+			</h1>
+		</script>
+
+		<script type="text/template" id="test-template">
+			<h2><%- rc.listTitle %></h2>
+			    <ul><% _.each( rc.listItems, function( listItem ){ %>
+			        <li>
+			            <%- listItem.name %>
+						            <% if ( listItem.hasOlympicGold ){ %>
+			                <em>*</em>
+			                <% } %>
+						        </li>
+			        <% }); %>
+						</ul>
+			    <% var showFootnote = _.any(
+			        _.pluck(rc.listItems, "hasOlympicGold")
+			    ); %>
+						<% if (showFootnote) { %>
+			    <p style="font-size: 12px ;">
+			        <em>* Olympic gold medalist</em>
+			    </p>
+			    <% } %>
+		</script>
+
+		<!-- main script -->
 		<script src="js/app.js"></script>
+		<!-- end main script -->
 	</body>
 </html>

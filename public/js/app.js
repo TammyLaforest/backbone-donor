@@ -109,6 +109,25 @@ app.DonorView = Backbone.View.extend({
     }
 })
 
+
+// app.DonorContactView = Backbone.View.extend({
+//     el: '#donor-contact',
+//     model: app.donor,
+//     // model: new app.Donor(),
+//     tagName: 'tr',
+//     template: _.template($('#donor-contact-template').html()),
+
+//     initialize: function (_id) {
+//         dbo.collection("customers").findOne({ _id }, function (err, result) {
+//             if (err) throw err;
+//             console.log(result);
+//             db.close();
+//         });
+//     }
+
+// })
+
+
 app.DonorsView = Backbone.View.extend({
     el: '#main',
     model: app.donorList,
@@ -138,6 +157,18 @@ app.DonorsView = Backbone.View.extend({
 })
 
 let donorsView = new app.DonorsView()
+
+app.TestView = Backbone.View.extend({
+    el: '#putsomethinghere',
+    tagname: 'div',
+    template: _.template($('#second-template').html()),
+    initialize: function () {
+        this.$el.html(this.template({ title: "this title" }))
+        return this
+    }
+})
+
+let testView = new app.TestView()
 
 $(document).ready(function () {
     $('.add-donor').on('click', function () {
