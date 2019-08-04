@@ -14,9 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
 	<body>
-		<!-- <h1 id="topofpage">
-			Looking At Underscore.js Templates
-		</h1> -->
+		<div id="donor-contact-view"></div>
 		<div id="putsomethinghere"></div>
 		<div class="container">
 			<div class="row">
@@ -223,43 +221,23 @@
 			</td>
 		</script>
 
-		<script
-			src="js/templates/donor-contact-template.js"
-			type="text/template"
-			id="donor-contact-template"
-		></script>
+		<script type="text/template" id="donor-contact-template">
+			<h3>nonsense
+			nonsense | <%- firstName %> | <%- lastName %> | <%- email %>
+			</h3>
+		</script>
 
 		<script
 			src="js/templates/donor-donations-template.js"
 			type="text/template"
 			id="donor-donations-template"
 		></script>
+
 		<script type="text/template" id="second-template">
 			<h1>
 				title
 				<%- title %>
 			</h1>
-		</script>
-
-		<script type="text/template" id="test-template">
-			<h2><%- rc.listTitle %></h2>
-			    <ul><% _.each( rc.listItems, function( listItem ){ %>
-			        <li>
-			            <%- listItem.name %>
-						            <% if ( listItem.hasOlympicGold ){ %>
-			                <em>*</em>
-			                <% } %>
-						        </li>
-			        <% }); %>
-						</ul>
-			    <% var showFootnote = _.any(
-			        _.pluck(rc.listItems, "hasOlympicGold")
-			    ); %>
-						<% if (showFootnote) { %>
-			    <p style="font-size: 12px ;">
-			        <em>* Olympic gold medalist</em>
-			    </p>
-			    <% } %>
 		</script>
 
 		<!-- main script -->

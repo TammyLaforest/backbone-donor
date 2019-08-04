@@ -110,22 +110,41 @@ app.DonorView = Backbone.View.extend({
 })
 
 
-// app.DonorContactView = Backbone.View.extend({
-//     el: '#donor-contact',
-//     model: app.donor,
-//     // model: new app.Donor(),
-//     tagName: 'tr',
-//     template: _.template($('#donor-contact-template').html()),
+app.TestView = Backbone.View.extend({
+    el: '#putsomethinghere',
+    tagname: 'div',
+    template: _.template($('#second-template').html()),
+    initialize: function () {
+        this.$el.html(this.template({ title: "this title" }))
+        return this
+    }
+})
 
-//     initialize: function (_id) {
-//         dbo.collection("customers").findOne({ _id }, function (err, result) {
-//             if (err) throw err;
-//             console.log(result);
-//             db.close();
-//         });
-//     }
+app.DonorContactView = Backbone.View.extend({
+    el: '#donor-contact-view',
+    // model: app.donor,
+    // model: new app.Donor(),
+    tagname: 'div',
+    template: _.template($('#donor-contact-template').html()),
+    initialize: function () {
 
-// })
+        let data = {
+            firstName: "john",
+            lastName: "smith",
+            email: "johnsmith@example.com"
+        }
+        //         dbo.collection("customers").findOne({ _id }, function (err, result) {
+        //             if (err) throw err;
+        //             console.log(result);
+        //             db.close();
+        //         });
+        this.$el.html(this.template(data))
+        return this
+    }
+})
+
+let testView = new app.TestView()
+let donorContactView = new app.DonorContactView()
 
 
 app.DonorsView = Backbone.View.extend({
@@ -158,17 +177,6 @@ app.DonorsView = Backbone.View.extend({
 
 let donorsView = new app.DonorsView()
 
-app.TestView = Backbone.View.extend({
-    el: '#putsomethinghere',
-    tagname: 'div',
-    template: _.template($('#second-template').html()),
-    initialize: function () {
-        this.$el.html(this.template({ title: "this title" }))
-        return this
-    }
-})
-
-let testView = new app.TestView()
 
 $(document).ready(function () {
     $('.add-donor').on('click', function () {
