@@ -31,9 +31,15 @@ export const deleteDonor = async (req, res) => {
 }
 
 export const updateDonor = async (req, res) => {
-    console.log(`Received an UPDATE request for id: ${req.params.id}`)
-    Donor.updateOne({ _id: req.params.id },
-        req.body, function (err) {
-            res.send({ _id: req.params.id })
-        })
+
+    try {
+        Donor.updateOne({ _id: req.params.id },
+            req.body, function (err) {
+                res.send({ _id: req.params.id })
+            })
+        console.log(`Server Received an UPDATE request for id: ${req.params.id}`)
+    }
+    catch (err) {
+        console.log(err)
+    }
 }

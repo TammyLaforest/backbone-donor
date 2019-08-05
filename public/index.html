@@ -46,10 +46,7 @@
 					<!-- List of donors -->
 					<tbody class="donor-list" id="main"></tbody>
 				</table>
-				<!-- Code for modal -->
-				<div id="modal-template-div"></div>
-			</div>
-		</div>
+				</div>
 
 		<!-- Libraries -->
 		<script
@@ -90,183 +87,106 @@
 		<!-- Templates -->
 
 		<script type="text/template" id="donor-list-template">
-
-						<td class="firstName">
-							<%= firstName %>
-						</td>
-						<td class="lastName">
-							<%= lastName %>
-						</td>
-						<td class="email">
-							<%= email %>
-					</td>
-						<td class="modal-button">
-			<button class="btn btn-success update-donor" style="display:none">
-								Update
-							</button>
-							<button class="btn btn-danger cancel closeInputs" style="display:none">Cancel</button>
-
-									<button
-								type="button"
-								class="btn btn-primary toggle-donor"
-								data-toggle="modal"
-								data-target="#exampleModalLong"
-								data-id=
-							>Open Donor
-							</button>
-						</td>
-		</script>
-
-		<script type="text/template" id="donor-contact-template">
-			<td class="firstName">
-				<%= firstName %>
-			</td>
-			<td class="lastName">
-				<%= lastName %>
-			</td>
-			<td class="email">
-				<%= email %>
-			</td>
-		</script>
-
-		<script
-			src="js/templates/donor-donations-template.js"
-			type="text/template"
-			id="donor-donations-template"
-		></script>
-
-		<script type="text/template" id="modal-template">
-							<div
-							class="modal fade"
-							id="exampleModalLong"
-							tabindex="-1"
-							role="dialog"
-							aria-labelledby="donormodal"
-							aria-hidden="true"
-						>
-							<div
-								class="modal-dialog modal-dialog-centered modal-lg"
-								role="document"
-							>
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title"></h5>
-										<button
-											type="button"
-											class="close"
-											data-dismiss="modal"
-											aria-label="Close"
-										>
-											<span class="resetInputs" aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<h3>Account Information</h3>
-											<div>
-												<table class="table" id="donorapp">
-								<thead>
-									<tr>
-										<th scope="col">First</th>
-										<th scope="col">Last</th>
-										<th scope="col">Email</th>
-										<th scope="col">Action</th>
-									</tr>
-
-								</thead>
-								<tbody>
-								<td class="firstName">
-							<%= firstName %>
-						</td>
-						<td class="lastName">
-							<%= lastName %>
-						</td>
-						<td class="email">
-							<%= email %>
-						</td>
-						<td class="modal-button">
-			<button class="btn btn-success update-donor" style="display:none">
-								Update
-							</button>
-							<button class="btn btn-danger cancel closeInputs" style="display:none">Cancel</button>
-											<button
-													class="btn btn-warning edit-donor"
-												>
+				<td class="firstName">
+					<%= rc.firstName %>
+				</td>
+				<td class="lastName">
+					<%= rc.lastName %>
+				</td>
+				<td class="email">
+					<%= rc.email %>
+			</td><td class="modal-button">
+					<button class="btn btn-success update-donor" style="display:none">
+													Update
+												</button>
+												<button class="btn btn-danger cancel closeInputs" style="display:none">Cancel</button>
+												<button class="btn btn-warning edit-donor">
 													Edit
 												</button>
-								<button
-													class="btn btn-danger delete-donor resetInputs"
-													style="display:none"
-													data-dismiss="modal"
-												>
+												<button class="btn btn-danger delete-donor resetInputs" style="display:none"
+													data-dismiss="modal">
 													Delete
 												</button>
-											</div>
-										</td>
-									</tbody>
+			<%= rc.idTarget %>
+					Open Donor
+					</button>
+			<%= rc.idModal %>
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span class="resetInputs" aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h3>Account Information</h3>
+								<div>
+									<table class="table" id="donorapp">
+										<thead>
+											<tr>
+												<th scope="col">First</th>
+												<th scope="col">Last</th>
+												<th scope="col">Email</th>
+												<th scope="col">Action</th>
+											</tr>
+
+										</thead>
+										<tbody>
+											<td class="firstName">
+												<%= rc.firstName %>
+											</td>
+											<td class="lastName">
+												<%= rc.lastName %>
+											</td>
+											<td class="email">
+												<%= rc.email %>
+											</td>
+											<td class="modal-button">
+								</td>
+								</tbody>
 								</table>
 
+								<h3>Donations</h3>
+								<table class="table" id="donationapp">
+									<thead>
+										<tr>
+											<th scope="col">Donation Date</th>
+											<th scope="col">Purpose</th>
+											<th scope="col">Donation Amount</th>
+										</tr>
+										<tr>
+											<td>
+												<input class="form-control donationDate-input" />
+											</td>
+											<td>
+												<input class="form-control purpose-input" />
+											</td>
+											<td>
+												<input class="form-control amount-input" />
+											</td>
+											<td>
+												<button class="btn btn-primary add-donation">
+													Submit
+												</button>
+											</td>
+										</tr>
+									</thead>
 
-
-										<h3>Donations</h3>
-										<table class="table" id="donationapp">
-											<thead>
-												<tr>
-													<th scope="col">Donation Date</th>
-													<th scope="col">Purpose</th>
-													<th scope="col">Donation Amount</th>
-													<th scope="col">Action</th>
-												</tr>
-												<tr>
-													<td>
-														<input
-															class="form-control donationDate-input"
-														/>
-													</td>
-													<td>
-														<input
-															class="form-control purpose-input"
-														/>
-													</td>
-													<td>
-														<input
-															class="form-control amount-input"
-														/>
-													</td>
-													<td>
-														<button
-															class="btn btn-primary add-donation"
-														>
-															Submit
-														</button>
-													</td>
-												</tr>
-											</thead>
-
-											<tbody
-												class="donation-list"
-												id="donations"
-											></tbody>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button
-											type="button"
-											class="btn btn-secondary resetInputs"
-											data-dismiss="modal"
-										>
-											Close
-										</button>
-									</div>
-								</div>
+									<tbody class="donation-list" id="donations"></tbody>
+								</table>
 							</div>
-		</script>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary resetInputs" data-dismiss="modal">
+									Close
+								</button>
+							</div>
+						</div>
+					</div>
+			</div>
+			</td>
 
-		<!-- <script type="text/template" id="second-template">
-			<h1>
-				title
-				<%- title %>
-			</h1>
-		</script> -->
+		</script>
 
 		<!-- main script -->
 		<script src="js/app.js"></script>
