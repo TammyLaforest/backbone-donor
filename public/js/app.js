@@ -28,13 +28,10 @@ app.Donation = Backbone.Model.extend({
 // Collections
 app.DonorList = Backbone.Collection.extend({
     url: 'http://localhost:3000/api/donors'
-
 })
 
 // instance of Collection
 app.donorList = new app.DonorList()
-
-// Views
 
 // individual donors rendering
 app.DonorView = Backbone.View.extend({
@@ -45,13 +42,23 @@ app.DonorView = Backbone.View.extend({
         'click .edit-donor': 'edit',
         'click .update-donor': 'update',
         'click .cancel': 'cancel',
-        'click .delete-donor': 'delete'
+        'click .delete-donor': 'delete',
+        'click .toggle-donor': 'getOne',
+    },
+    getOne: function () {
+        let data = {
+            firstName: this.model.attributes.firstName,
+            lastName: this.model.attributes.lastName,
+            email: this.model.attributes.email,
+            donorID: this.model.attributes.donorID,
+        }
+        let myModal = new app.ModalView(data)
     },
     edit: function () {
 
-        $('.edit-donor').hide()
-        $('.delete-donor').hide()
-
+        this.$('.edit-donor').hide()
+        this.$('.toggle-donor').hide()
+        this.$('.delete-donor').show()
         this.$('.update-donor').show()
         this.$('.cancel').show()
 
@@ -82,7 +89,7 @@ app.DonorView = Backbone.View.extend({
 
         this.model.save(null, {
             success: function (response) {
-                console.log(`Successfully UPDATED donor with _id:${response.toJSON()._id}`)
+                console.log(`Successfully UPDATED donor with _id: ${response.toJSON()._id} `)
             },
             error: function (err) {
                 console.log('Failed to update donor!')
@@ -94,14 +101,18 @@ app.DonorView = Backbone.View.extend({
         donorsView.render()
     },
     delete: function () {
-        this.model.destroy({
-            success: function (response) {
-                console.log(`Successfully DELETED donor with _id:${response.toJSON()._id}`)
-            },
-            error: function (err) {
-                console.log('Failed to delete donor!')
-            }
-        })
+        if (confirm("Are you sure you want to delete this donor?")) {
+            this.model.destroy({
+                success: function (response) {
+                    console.log(`Successfully DELETED donor with _id: ${response.toJSON()._id} `)
+                },
+                error: function (err) {
+                    console.log('Failed to delete donor!')
+                }
+            })
+        } else {
+            donorsView.render()
+        }
     },
     render: function () {
         this.$el.html(this.template(this.model.toJSON()))
@@ -122,30 +133,36 @@ app.TestView = Backbone.View.extend({
 
 app.DonorContactView = Backbone.View.extend({
     el: '#donor-contact-view',
-    // model: app.donor,
-    // model: new app.Donor(),
     tagname: 'div',
     template: _.template($('#donor-contact-template').html()),
     initialize: function () {
-
         let data = {
             firstName: "john",
             lastName: "smith",
             email: "johnsmith@example.com"
-        }
-        //         dbo.collection("customers").findOne({ _id }, function (err, result) {
-        //             if (err) throw err;
-        //             console.log(result);
-        //             db.close();
-        //         });
+        };
         this.$el.html(this.template(data))
         return this
     }
 })
 
+app.ModalView = Backbone.View.extend({
+
+    el: '#modal-template-div',
+    tagname: 'div',
+    template: _.template($('#modal-template').html()),
+    initialize: function (data) {
+        // let data = {
+        //     firstName: "john",
+        //     lastName: "smith",
+        //     email: "johnsmith@example.com"
+        // }
+        this.$el.html(this.template(data))
+        return this
+    }
+})
 let testView = new app.TestView()
 let donorContactView = new app.DonorContactView()
-
 
 app.DonorsView = Backbone.View.extend({
     el: '#main',
@@ -157,7 +174,7 @@ app.DonorsView = Backbone.View.extend({
         this.model.fetch({
             success: function (response) {
                 _.each(response.toJSON(), function (item) {
-                    console.log(`Successfully GOT donor with _id:${item._id}`)
+                    console.log(`Successfully GOT donor with _id: ${item._id} `)
                 })
             },
             error: function () {
@@ -177,7 +194,6 @@ app.DonorsView = Backbone.View.extend({
 
 let donorsView = new app.DonorsView()
 
-
 $(document).ready(function () {
     $('.add-donor').on('click', function () {
         let donor = new app.Donor({
@@ -194,7 +210,7 @@ $(document).ready(function () {
 
         donor.save(null, {
             success: function (response) {
-                console.log(`Successfully SAVED donor with _id:${response.toJSON()._id}`)
+                console.log(`Successfully SAVED donor with _id: ${response.toJSON()._id} `)
             },
             error: function () {
                 console.log('Failed to save donor!')

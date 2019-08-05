@@ -10,13 +10,6 @@ export const getDonors = async (req, res) => {
     })
 }
 
-export const getOneDonor = async (req, res) => {
-    Donor.findOne(function (err, docs) {
-        console.log(`Received a GET request for _id:${docs._id}`)
-    })
-    res.send(docs)
-}
-
 export const newDonor = async (req, res) => {
     console.log(`Received a POST request`)
     for (let key in req.body) {
